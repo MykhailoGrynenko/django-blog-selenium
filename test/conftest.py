@@ -3,6 +3,7 @@ import pytest
 from selenium import webdriver
 
 from src.config import Config
+from src.driver_factory import DriverFactory
 
 
 def pytest_addoption(parser):
@@ -24,6 +25,7 @@ def env_config(env):
 
 @pytest.fixture(scope='session')
 def driver():
-    driver = webdriver.Firefox()
+    driver = DriverFactory.get_driver()
+    driver.maximize_window()
     yield driver
     driver.quit()

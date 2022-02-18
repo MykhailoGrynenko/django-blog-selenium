@@ -13,11 +13,11 @@ logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
 
 
 class Page:
-    url = 'https://myamazingdjangoblog.herokuapp.com'
 
-    def __init__(self, driver):
+    def __init__(self, env_config, driver):
         self.driver = driver
-        self.driver.get(self.url)
+        self.env_config = env_config
+        self.driver.get(self.env_config.base_url)
 
     def find_element(self, element):
         try:
@@ -26,16 +26,16 @@ class Page:
             )
             return elem
         except TimeoutException:
-            logging.warning(f'The element {element[1]} has not been found'
+            logging.warning(f'The element {element[1]} has not been found '
                             f'by the {element[0]} locator.')
 
     def click_on_element(self, element):
         try:
-            WebDriverWait(self.driver, 3).until(
+            WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable(element)
             ).click()
         except TimeoutException:
-            logging.warning(f'The element {element[1]} has not been found'
+            logging.warning(f'The element {element[1]} has not been found '
                             f'by the {element[0]} locator.')
 
     def write(self, element, text):
@@ -44,7 +44,7 @@ class Page:
             elem.clear()
             elem.send_keys(text)
         except InvalidElementStateException:
-            logging.warning(f'Cannot write to the element "{element[1]}"'
+            logging.warning(f'Cannot write to the element "{element[1]}" '
                             f' the text "{text}" by the "{element[0]}".')
 
     def is_displayed(self, element):
@@ -54,7 +54,7 @@ class Page:
 class LoginPage(Page):
     @property
     def open(self):
-        self.driver.get(f'{self.url}/login/')
+        self.driver.get(f'{self.env_config.base_url}/login/')
         return self
 
     def login_as(self, username, password):

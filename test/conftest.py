@@ -1,6 +1,5 @@
 import pytest
-
-from selenium import webdriver
+from faker import Faker
 
 from src.config import Config
 from src.driver_factory import DriverFactory
@@ -29,3 +28,8 @@ def driver():
     driver.maximize_window()
     yield driver
     driver.quit()
+
+
+@pytest.fixture(scope='session')
+def fake():
+    return Faker()

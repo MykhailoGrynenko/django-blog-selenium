@@ -6,7 +6,7 @@ from selenium.common.exceptions import (TimeoutException,
                                         InvalidElementStateException,
                                         )
 
-from src.locators import NavigationLocators, LoginLocators
+from src.locators import NavigationLocators, LoginLocators, RegisterLocators
 
 
 logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
@@ -64,3 +64,17 @@ class LoginPage(Page):
 
     def logout(self):
         self.click_on_element(NavigationLocators.logout)
+
+
+class RegisterPage(Page):
+    @property
+    def open(self):
+        self.driver.get(f'{self.env_config.base_url}/register/')
+        return self
+
+    def register_as(self, username, email, password, password_confirm):
+        self.write(RegisterLocators.username, username)
+        self.write(RegisterLocators.email, email)
+        self.write(RegisterLocators.pass_register_one, password)
+        self.write(RegisterLocators.pass_register_two, password_confirm)
+        self.click_on_element(RegisterLocators.button_sign_up)

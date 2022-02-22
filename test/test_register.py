@@ -56,3 +56,17 @@ def test_register_valid_credentials(driver, env_config, fake):
     register_page.register_as(fake.user_name(), fake.email(), fake_password, fake_password)
     assert 'Your account has been created. You are now able to log in!'\
            in register_page.find_element(RegisterLocators.valid_registration).text
+
+
+def test_register_username_already_exists(driver, env_config, fake, register):
+    register_page = RegisterPage(env_config, driver).open
+    register_page.register_as(register[0], fake.email(), register[2], register[2])
+    assert 'A user with that username already exists.'\
+           in register_page.find_element(RegisterLocators.error_username).text
+
+
+@pytest.mark.xfail(reason='There is a bug, therefore, the test fails.')
+def test_register_email_already_exists(driver, env_config, fake, register):
+    register_page = RegisterPage(env_config, driver).open
+    register_page.register_as(fake.user_name(), register[1], register[2], register[2])
+    assert 'A user with that email already exists.' in driver.page_source

@@ -41,6 +41,17 @@ class ProfileLocators:
 
 
 class NewPostLocators:
-    title = (By.ID, 'id_title')
-    content = (By.ID, 'id_content')
+    create_title = (By.ID, 'id_title')
+    crate_content = (By.ID, 'id_content')
     button_post = (By.XPATH, '//button[text()="Post"]')
+
+    username = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/a')
+    time = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/small')
+    title = (By.XPATH, '/html/body/main/div/div[1]/article/div/h2')
+    content = (By.XPATH, '/html/body/main/div/div[1]/article/div/p')
+    button_update = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/div/a[1]')
+    button_delete = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/div/a[2]')
+    button_confirmation = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/button')
+    button_delete_cancel = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/a')
+
+    delete_post_text = (By.XPATH, '/html/body/main/div/div[1]/div/form/fieldset/h2')

@@ -6,7 +6,7 @@ from selenium.common.exceptions import (TimeoutException,
                                         InvalidElementStateException,
                                         )
 
-from src.locators import NavigationLocators, LoginLocators, RegisterLocators
+from src.locators import NavigationLocators, LoginLocators, RegisterLocators, NewPostLocators
 
 
 logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
@@ -78,3 +78,15 @@ class RegisterPage(Page):
         self.write(RegisterLocators.pass_register_one, password)
         self.write(RegisterLocators.pass_register_two, password_confirm)
         self.click_on_element(RegisterLocators.button_sign_up)
+
+
+class NewPost(Page):
+    @property
+    def open(self):
+        self.driver.get(f'{self.env_config.base_url}/post/new/')
+        return self
+
+    def create_post(self, title, content):
+        self.write(NewPostLocators.create_title, title)
+        self.write(NewPostLocators.crate_content, content)
+        self.click_on_element(NewPostLocators.button_post)

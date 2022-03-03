@@ -3,6 +3,8 @@ Module contains class, which creates single DriverFactory that provides specifie
 """
 
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 class DriverFactory:
@@ -18,7 +20,7 @@ class DriverFactory:
         if driver_name.lower() == 'chrome':
             _single_web_driver = webdriver.Chrome()
         elif driver_name.lower() == 'firefox':
-            _single_web_driver = webdriver.Firefox()
+            _single_web_driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
         elif driver_name.lower() in ('ie', 'iexplorer', 'internetexplorer'):
             _single_web_driver = webdriver.Ie()
         elif driver_name.lower() == 'edge':

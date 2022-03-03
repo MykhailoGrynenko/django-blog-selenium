@@ -18,6 +18,7 @@ class LoginLocators:
     forgot_pass = (By.CSS_SELECTOR, 'a[href="/password-reset/"]')
     sign_up_now = (By.LINK_TEXT, 'Sign Up now')
     do_you_need_account = (By.XPATH, '/html/body/main/div/div[1]/div/div/small')
+    incorrect_data = (By.XPATH, '//fieldset/div[1]/ul/li')
 
 
 class RegisterLocators:
@@ -27,6 +28,10 @@ class RegisterLocators:
     pass_register_two = (By.ID, 'id_password2')
     button_sign_up = (By.XPATH, '//button[text()="Sign Up"]')
     sign_in = (By.LINK_TEXT, 'Sign In')
+    error_username = (By.ID, 'div_id_username')
+    error_email = (By.ID, 'div_id_email')
+    error_password = (By.ID, 'div_id_password2')
+    valid_registration = (By.XPATH, '/html/body/main/div/div[1]/div[1]')
 
 
 class ProfileLocators:

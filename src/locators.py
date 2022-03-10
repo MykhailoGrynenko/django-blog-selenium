@@ -50,8 +50,10 @@ class NewPostLocators:
     title = (By.XPATH, '/html/body/main/div/div[1]/article/div/h2')
     content = (By.XPATH, '/html/body/main/div/div[1]/article/div/p')
     button_update = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/div/a[1]')
+    button_update_confirm = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/button')
     button_delete = (By.XPATH, '/html/body/main/div/div[1]/article/div/div/div/a[2]')
-    button_confirmation = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/button')
+    button_yes_delete = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/button')
     button_delete_cancel = (By.XPATH, '/html/body/main/div/div[1]/div/form/div/a')
-
+    update_title = (By.ID, 'id_title')
+    update_content = (By.ID, 'id_content')
     delete_post_text = (By.XPATH, '/html/body/main/div/div[1]/div/form/fieldset/h2')

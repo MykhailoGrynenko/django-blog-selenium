@@ -6,7 +6,7 @@ from selenium.common.exceptions import (TimeoutException,
                                         InvalidElementStateException,
                                         )
 
-from src.locators import NavigationLocators, LoginLocators, RegisterLocators
+from src.locators import NavigationLocators, LoginLocators, RegisterLocators, NewPostLocators
 
 
 logging.basicConfig(filename='exceptions.log', level=logging.DEBUG)
@@ -47,6 +47,12 @@ class Page:
             logging.warning(f'Cannot write to the element "{element[1]}" '
                             f' the text "{text}" by the "{element[0]}".')
 
+    def get_element_text(self, element):
+        return self.find_element(element).text
+
+    def get_input_text(self, element):
+        return self.find_element(element).get_attribute('value')
+
     def is_displayed(self, element):
         return self.find_element(element)
 
@@ -78,3 +84,27 @@ class RegisterPage(Page):
         self.write(RegisterLocators.pass_register_one, password)
         self.write(RegisterLocators.pass_register_two, password_confirm)
         self.click_on_element(RegisterLocators.button_sign_up)
+
+
+class NewPost(Page):
+    @property
+    def open(self):
+        self.driver.get(f'{self.env_config.base_url}/post/new/')
+        return self
+
+    def create_post(self, title, content):
+        self.write(NewPostLocators.create_title, title)
+        self.write(NewPostLocators.crate_content, content)
+        self.click_on_element(NewPostLocators.button_post)
+
+    def update_post(self, title=None, content=None):
+        self.click_on_element(NewPostLocators.button_update)
+        if title:
+            self.write(NewPostLocators.update_title, title)
+        if content:
+            self.write(NewPostLocators.update_content, content)
+        self.click_on_element(NewPostLocators.button_update_confirm)
+
+    def delete_post(self):
+        self.click_on_element(NewPostLocators.button_delete)
+        self.click_on_element(NewPostLocators.button_yes_delete)

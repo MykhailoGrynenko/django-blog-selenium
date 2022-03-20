@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 from faker import Faker
 
@@ -44,6 +46,8 @@ def register(driver, env_config, fake):
     fake_password = fake.password()
     register_page = RegisterPage(env_config, driver).open
     register_page.register_as(fake_username, fake_email, fake_password, fake_password)
+    logging.info(f'Registered as username: {fake_username}, '
+                 f'email: {fake_email}, password: {fake_password}')
     return fake_username, fake_email, fake_password
 
 
@@ -51,6 +55,7 @@ def register(driver, env_config, fake):
 def login(driver, env_config, register):
     login_page = LoginPage(env_config, driver).open
     login_page.login_as(register[0], register[2])
+    logging.info(f'Logged as username: {register[0]}, password: {register[2]}')
     return login_page
 
 
@@ -58,4 +63,5 @@ def login(driver, env_config, register):
 def create_post(driver, env_config, login):
     new_post = NewPost(env_config, driver).open
     new_post.create_post('post_title', 'post_content')
+    logging.info('Post created')
     return new_post

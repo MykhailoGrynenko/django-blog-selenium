@@ -1,3 +1,6 @@
+import logging
+
+
 class NoEnvException(Exception):
     pass
 
@@ -11,7 +14,7 @@ class Config:
         if env.lower() not in self.SUPPORTED_ENVS:
             raise NoEnvException(f'The "{env}" is not a supported environment. '
                                  f'Choose one of the environments {self.SUPPORTED_ENVS}.')
-
+        logging.info(f'The selected env is {env}')
         self.base_url = {
             'dev': 'https://myamazingdjangoblog.herokuapp.com',
             'qa': 'https://myamazingdjangoblog.herokuapp.com',

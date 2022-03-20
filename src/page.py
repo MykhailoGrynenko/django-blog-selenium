@@ -28,6 +28,8 @@ class Page:
         except TimeoutException:
             logging.warning(f'The element {element[1]} has not been found '
                             f'by the {element[0]} locator.')
+        except Exception as e:
+            logging.warning(e)
 
     def click_on_element(self, element):
         try:
@@ -37,6 +39,8 @@ class Page:
         except TimeoutException:
             logging.warning(f'The element {element[1]} has not been found '
                             f'by the {element[0]} locator.')
+        except Exception as e:
+            logging.warning(e)
 
     def write(self, element, text):
         try:
@@ -46,6 +50,8 @@ class Page:
         except InvalidElementStateException:
             logging.warning(f'Cannot write to the element "{element[1]}" '
                             f' the text "{text}" by the "{element[0]}".')
+        except Exception as e:
+            logging.warning(e)
 
     def get_element_text(self, element):
         return self.find_element(element).text

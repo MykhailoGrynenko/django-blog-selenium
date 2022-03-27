@@ -3,7 +3,6 @@ import logging
 import pytest
 from faker import Faker
 
-from src.locators import NewPostLocators
 from src.page import RegisterPage, LoginPage, NewPost
 from src.config import Config
 from src.driver_factory import DriverFactory

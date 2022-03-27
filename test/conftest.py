@@ -1,7 +1,8 @@
 import pytest
 from faker import Faker
 
-from src.page import RegisterPage, LoginPage
+from src.locators import NewPostLocators
+from src.page import RegisterPage, LoginPage, NewPost
 from src.config import Config
 from src.driver_factory import DriverFactory
 
@@ -51,3 +52,10 @@ def login(driver, env_config, register):
     login_page = LoginPage(env_config, driver).open
     login_page.login_as(register[0], register[2])
     return login_page
+
+
+@pytest.fixture(scope='session')
+def create_post(driver, env_config, login):
+    new_post = NewPost(env_config, driver).open
+    new_post.create_post('post_title', 'post_content')
+    return new_post

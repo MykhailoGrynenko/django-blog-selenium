@@ -24,6 +24,8 @@ class Page:
             elem = WebDriverWait(self.driver, 10).until(
                 EC.visibility_of_element_located(element)
             )
+            logging.info(f'The element with locator {element[1]} by type: '
+                         f'{element[0]} found!')
             return elem
         except TimeoutException:
             logging.warning(f'The element {element[1]} has not been found '
@@ -36,6 +38,8 @@ class Page:
             WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable(element)
             ).click()
+            logging.info(f'The element with locator {element[1]} by type: '
+                         f'{element[0]} has been clicked!')
         except TimeoutException:
             logging.warning(f'The element {element[1]} has not been found '
                             f'by the {element[0]} locator.')
@@ -47,6 +51,8 @@ class Page:
             elem = self.find_element(element)
             elem.clear()
             elem.send_keys(text)
+            logging.info(f'Write to the element "{element[1]}" '
+                         f' the text "{text}" by the "{element[0]}".')
         except InvalidElementStateException:
             logging.warning(f'Cannot write to the element "{element[1]}" '
                             f' the text "{text}" by the "{element[0]}".')
